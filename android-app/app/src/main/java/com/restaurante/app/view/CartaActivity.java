@@ -1,70 +1,129 @@
 package com.restaurante.app.view;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.restaurante.app.R;
-import com.restaurante.app.model.Plato;
+import com.restaurante.app.adapter.ProductoAdapter;
+import com.restaurante.app.model.Producto;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * PANTALLA DE CARTA / MENÚ
+ * Muestra los productos disponibles filtrados por la categoría seleccionada previamente.
+ * - Implementa la funcionalidad de "Visualización del Catálogo".
+ * - Permite al cliente navegar hacia el Carrito de compras.
+ */
 public class CartaActivity extends AppCompatActivity {
 
-    @SuppressLint("MissingInflatedId")
+    private ProductoAdapter adapter;
+    private List<Producto> productosFiltrados;
+    private DatabaseReference mDatabase;
+
+    private static final String DB_URL = "https://e-comanda-aa795-default-rtdb.europe-west1.firebasedatabase.app";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_carta);
-        
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        // 1. Recibir la categoría seleccionada
+        // Recibimos la categoría seleccionada en la pantalla anterior (CategoriasActivity)
         String categoriaRecibida = getIntent().getStringExtra("categoria_seleccionada");
+        
+        TextView txtTituloCarta = findViewById(R.id.txtTituloCarta);
+        if (txtTituloCarta != null && categoriaRecibida != null) {
+            txtTituloCarta.setText(categoriaRecibida);
+        }
 
         RecyclerView rv = findViewById(R.id.rvPlatos);
         rv.setLayoutManager(new LinearLayoutManager(this));
 
-        // 2. Crear la lista completa de platos
-        List<Plato> todosLosPlatos = new ArrayList<>();
-        todosLosPlatos.add(new Plato("Pizza Margarita", "Tomate y mozzarella.", 10.50, "Principal"));
-        todosLosPlatos.add(new Plato("Pasta Carbonara", "Huevo y guanciale.", 12.00, "Principal"));
-        todosLosPlatos.add(new Plato("Ensalada César", "Pollo y salsa césar.", 9.00, "Entrante"));
-        todosLosPlatos.add(new Plato("Cerveza 33cl", "Rubia muy fría.", 3.50, "Bebida"));
-        todosLosPlatos.add(new Plato("Refresco Cola", "Con hielo y limón.", 2.50, "Bebida"));
-        todosLosPlatos.add(new Plato("Tarta de Queso", "Casera con arándanos.", 5.50, "Postre"));
-
-        // 3. Filtrar la lista según la categoría
-        List<Plato> platosFiltrados = new ArrayList<>();
-        for (Plato p : todosLosPlatos) {
-            if (p.getCategoria().equals(categoriaRecibida)) {
-                platosFiltrados.add(p);
-            }
-        }
-
-        // 4. Pasar la lista filtrada al adaptador
-        PlatoAdapter adapter = new PlatoAdapter(platosFiltrados);
+        productosFiltrados = new ArrayList<>();
+        adapter = new ProductoAdapter(productosFiltrados);
         rv.setAdapter(adapter);
+
+        mDatabase = FirebaseDatabase.getInstance(DB_URL).getReference("productos");
+
+        // Ejecuta la app una vez para resetear y subir los productos correctos con los nuevos nombres de categoría.
+        crearProductosDePrueba();
+
+        // Carga dinámica de productos desde la nube
+        cargarProductosFiltrados(categoriaRecibida);
 
         Button btnPedido = findViewById(R.id.btnVerPedido);
         btnPedido.setOnClickListener(v -> {
             Intent intent = new Intent(this, PedidoActivity.class);
             startActivity(intent);
         });
+    }
+
+    /**
+     * Consulta a Firebase filtrada por categoría.
+     * Demuestra la integración del sistema con servicios en la nube para el mantenimiento de la carta en tiempo real.
+     */
+    private void cargarProductosFiltrados(String categoria) {
+        if (categoria == null) return;
+
+        mDatabase.orderByChild("categoria").equalTo(categoria)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        productosFiltrados.clear();
+                        for (DataSnapshot data : snapshot.getChildren()) {
+                            Producto p = data.getValue(Producto.class);
+                            if (p != null) {
+                                productosFiltrados.add(p);
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("Firebase_Carta", "Error: " + error.getMessage());
+                    }
+                });
+    }
+
+    private void crearProductosDePrueba() {
+        // Limpiamos para evitar duplicados de ejecuciones anteriores
+        mDatabase.removeValue();
+
+        List<Producto> lista = new ArrayList<>();
+        lista.add(new Producto("p1", "Ensalada César", "Lechuga, pollo, picatostes y salsa", 8.50, "Entrantes", true));
+        lista.add(new Producto("p2", "Croquetas Caseras", "6 unidades de jamón ibérico", 7.00, "Entrantes", true));
+
+        lista.add(new Producto("p3", "Hamburguesa Gourmet", "Carne de buey y queso brie", 12.90, "Principales", true));
+        lista.add(new Producto("p12", "Hamburguesa de la casa", "Carne picada de calidad con extra de bacon", 11.50, "Principales", true));
+        lista.add(new Producto("p4", "Pizza Barbacoa", "Pollo, bacón y salsa barbacoa", 10.50, "Principales", true));
+        lista.add(new Producto("p11", "Entrecot de Ternera", "300g de carne a la brasa con patatas", 18.00, "Principales", false)); // MARCADOR AGOTADO PARA TFG
+
+        lista.add(new Producto("p5", "Refresco", "Cola, Naranja o Limón", 2.50, "Bebidas", true));
+        lista.add(new Producto("p6", "Cerveza", "Tercio de Mahou", 3.00, "Bebidas", true));
+        lista.add(new Producto("p9", "Copa de Vino Tinto", "Rioja Crianza de la casa", 3.50, "Bebidas", true));
+
+        lista.add(new Producto("p7", "Tarta de Queso", "Con mermelada de arándanos", 5.50, "Postres", true));
+        lista.add(new Producto("p10", "Tarta de la Abuela", "Galleta, chocolate y natillas caseras", 5.00, "Postres", true));
+        lista.add(new Producto("p8", "Brownie con helado", "Helado de vainilla y chocolate", 6.00, "Postres", true));
+
+        for (Producto p : lista) {
+            mDatabase.child(p.getIdProducto()).setValue(p);
+        }
     }
 }

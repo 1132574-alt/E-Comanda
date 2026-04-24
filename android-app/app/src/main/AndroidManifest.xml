@@ -11,27 +11,56 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Restaurante" >
+
         <activity
-            android:name=".view.CategoriasActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.PedidoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.DetallePlatoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.CartaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.MainActivity"
+            android:name=".view.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.HistorialActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.CategoriasActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.PedidoActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.DetalleProductoActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.CartaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.CocinaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.CamareroActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.MenuCocinaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.GestionStockActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

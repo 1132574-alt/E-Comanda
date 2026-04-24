@@ -8,6 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.card.MaterialCardView;
 import com.restaurante.app.R;
 
+/**
+ * PANTALLA DE SELECCIÓN DE CATEGORÍAS
+ * Permite al usuario elegir qué tipo de productos desea visualizar (Entrantes, Principales, etc.).
+ */
 public class CategoriasActivity extends AppCompatActivity {
 
     @Override
@@ -15,17 +19,16 @@ public class CategoriasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorias);
 
-        // Enlazar Cards
-        MaterialCardView cardEntrantes = findViewById(R.id.cardEntrantes);
+        MaterialCardView cardEntrantes   = findViewById(R.id.cardEntrantes);
         MaterialCardView cardPrincipales = findViewById(R.id.cardPrincipales);
-        MaterialCardView cardBebidas = findViewById(R.id.cardBebidas);
-        MaterialCardView cardPostres = findViewById(R.id.cardPostres);
+        MaterialCardView cardBebidas     = findViewById(R.id.cardBebidas);
+        MaterialCardView cardPostres     = findViewById(R.id.cardPostres);
 
-        // Configurar clics
-        cardEntrantes.setOnClickListener(v -> abrirCarta("Entrante"));
-        cardPrincipales.setOnClickListener(v -> abrirCarta("Principal"));
-        cardBebidas.setOnClickListener(v -> abrirCarta("Bebida"));
-        cardPostres.setOnClickListener(v -> abrirCarta("Postre"));
+        // Pasamos el nombre exacto que queremos que aparezca como título
+        cardEntrantes.setOnClickListener(v   -> abrirCarta("Entrantes"));
+        cardPrincipales.setOnClickListener(v -> abrirCarta("Principales"));
+        cardBebidas.setOnClickListener(v     -> abrirCarta("Bebidas"));
+        cardPostres.setOnClickListener(v     -> abrirCarta("Postres"));
     }
 
     private void abrirCarta(String categoria) {

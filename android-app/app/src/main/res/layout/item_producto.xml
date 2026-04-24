@@ -25,7 +25,7 @@
                 android:id="@+id/txtNombrePlato"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre del Plato"
+                android:text="Nombre del Producto"
                 android:textColor="#212121"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -37,6 +37,16 @@
                 android:text="Ingredientes frescos y elaboración casera"
                 android:textColor="#757575"
                 android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtEstadoProducto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AGOTADO"
+                android:textColor="#F44336"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
         </LinearLayout>
 
         <TextView

@@ -46,12 +46,34 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TOTAL"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:text="Este pedido:"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtTotalPedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00€"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cuenta total sesión:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtCuentaActual"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0.00€"
