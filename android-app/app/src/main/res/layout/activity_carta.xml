@@ -6,28 +6,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/eggshell"
     tools:context=".view.CartaActivity">
-
-    <ImageView
-        android:id="@+id/imgFondoCarta"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/fondo_restaurante"
-        android:alpha="0.1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtTituloCarta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Nuestra Carta"
-        android:textColor="#212121"
-        android:textSize="24sp"
+        android:textColor="@color/twilight_indigo"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +26,7 @@
         android:id="@+id/rvPlatos"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="8dp"
+        android:paddingTop="16dp"
         android:clipToPadding="false"
         app:layout_constraintBottom_toTopOf="@+id/btnVerPedido"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,11 +37,13 @@
     <Button
         android:id="@+id/btnVerPedido"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_margin="16dp"
-        android:backgroundTint="#FF9800"
-        android:text="VER MI PEDIDO"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/twilight_indigo"
+        android:text="REVISAR MI PEDIDO"
+        android:textColor="@color/eggshell"
+        android:textStyle="bold"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:elevation="4dp">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:background="@color/card_surface">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -26,7 +29,7 @@
                 android:text="Nombre del Producto"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="#000000"/>
+                android:textColor="@color/primary"/>
 
             <TextView
                 android:id="@+id/txtCategoriaProductoStock"
@@ -34,15 +37,18 @@
                 android:layout_height="wrap_content"
                 android:text="Categoría"
                 android:textSize="14sp"
-                android:textColor="#666666"/>
+                android:textColor="@color/secondary"/>
         </LinearLayout>
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switchDisponible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Disponible"
-            android:padding="8dp"/>
+            android:textColor="@color/primary"
+            android:padding="8dp"
+            app:thumbTint="@color/primary"
+            app:trackTint="@color/secondary"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/txtMesaCocina"
@@ -16,27 +21,41 @@
             android:layout_height="wrap_content"
             android:text="Mesa: 00"
             android:textStyle="bold"
-            android:textSize="18sp" />
+            android:textSize="20sp"
+            android:textColor="@color/primary" />
 
         <TextView
             android:id="@+id/txtEstadoPedidoCocina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Estado: "
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:textColor="@color/secondary"
+            android:layout_marginTop="4dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background_app"
+            android:layout_marginVertical="8dp"/>
 
         <TextView
             android:id="@+id/txtDetallePedidoCocina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Detalle del pedido..." />
+            android:text="Detalle del pedido..."
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btnMarcarServido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="LISTO / SERVIR" />
+            android:layout_marginTop="12dp"
+            android:text="AVANZAR ESTADO"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/white"
+            app:cornerRadius="8dp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

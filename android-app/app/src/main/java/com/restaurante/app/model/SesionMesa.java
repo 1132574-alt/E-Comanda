@@ -19,14 +19,8 @@ public class SesionMesa implements Serializable {
     private boolean pedidoCamarero;
     private boolean pedidoCuenta;
 
-    /**
-     * Constructor vacío requerido por Firebase.
-     */
     public SesionMesa() {}
 
-    /**
-     * Constructor para iniciar una nueva sesión de cliente.
-     */
     public SesionMesa(String idSesion, String idMesa) {
         this.idSesion = idSesion;
         this.idMesa = idMesa;

@@ -54,9 +54,6 @@ public class CamareroActivity extends AppCompatActivity {
         escucharAvisos();
     }
 
-    /**
-     * ESCUCHA EN TIEMPO REAL CON FILTRADO
-     */
     private void escucharAvisos() {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override

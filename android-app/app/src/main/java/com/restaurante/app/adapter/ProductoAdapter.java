@@ -20,6 +20,11 @@ import java.util.List;
 /**
  * ADAPTER PARA LA CARTA DE PRODUCTOS
  * Gestiona la visualización de los platos y bebidas disponibles en la carta.
+ * 
+ * Relación TFG:
+ * - Implementa la interfaz de usuario para la navegación por la Carta.
+ * - Incluye lógica de negocio crítica: el control de disponibilidad. Si un producto está marcado como
+ *   no disponible (sin stock), se bloquea visualmente para evitar pedidos que no pueden ser servidos.
  * - Facilita la navegación hacia la pantalla de detalles del producto.
  */
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
@@ -41,6 +46,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         Producto producto = productos.get(position);
 
         holder.nombre.setText(producto.getNombre());
+        holder.descripcion.setText(producto.getDescripcion());
         holder.precio.setText(String.format("%.2f€", producto.getPrecio()));
 
         // GESTIÓN DE DISPONIBILIDAD (Control de Stock)
@@ -71,11 +77,12 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     public int getItemCount() { return productos.size(); }
 
     static class ProductoViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre, precio, txtEstado;
+        TextView nombre, descripcion, precio, txtEstado;
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.txtNombrePlato);
+            descripcion = itemView.findViewById(R.id.txtDescripcionProducto);
             precio = itemView.findViewById(R.id.txtPrecioPlato);
             txtEstado = itemView.findViewById(R.id.txtEstadoProducto);
         }

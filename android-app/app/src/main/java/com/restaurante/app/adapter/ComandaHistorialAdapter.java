@@ -54,8 +54,6 @@ public class ComandaHistorialAdapter extends RecyclerView.Adapter<ComandaHistori
         String estado = comanda.getEstado();
         holder.txtEstado.setText(estado);
 
-        // CÓDIGO DE COLORES POR ESTADO
-        // Relación TFG: Ayuda visual al cliente para conocer el progreso de su comida sin llamar al camarero.
         if ("SOLICITADO".equals(estado)) {
             holder.txtEstado.setTextColor(Color.parseColor("#2196F3")); // Azul
             holder.btnCancelar.setVisibility(View.VISIBLE);

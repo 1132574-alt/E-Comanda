@@ -5,33 +5,40 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="32dp"
-    android:background="#F8F9FA">
+    android:background="@color/background_app">
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@color/primary"
+        android:layout_marginBottom="24dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GESTIÓN DE COMANDAS"
-        android:textSize="22sp"
+        android:text="BIENVENIDO"
+        android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="#2C3E50"
+        android:textColor="@color/primary"
         android:layout_marginBottom="8dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Acceso por Mesa / Tablet"
+        android:text="Gestión Digital de Restaurante"
         android:textSize="16sp"
-        android:textColor="#7F8C8D"
-        android:layout_marginBottom="32dp"/>
+        android:textColor="@color/secondary"
+        android:layout_marginBottom="48dp"/>
 
     <EditText
         android:id="@+id/etUsuarioTablet"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:hint="Usuario Tablet (Ej: MESA_01)"
+        android:hint="Usuario (Mesa, Cocina, Camarero)"
         android:inputType="text"
-        android:padding="12dp"
+        android:padding="16dp"
         android:background="@android:drawable/edit_text"
+        android:backgroundTint="@color/white"
         android:layout_marginBottom="16dp"/>
 
     <EditText
@@ -40,18 +47,20 @@
         android:layout_height="55dp"
         android:hint="Contraseña"
         android:inputType="textPassword"
-        android:padding="12dp"
+        android:padding="16dp"
         android:background="@android:drawable/edit_text"
-        android:layout_marginBottom="24dp"/>
+        android:backgroundTint="@color/white"
+        android:layout_marginBottom="32dp"/>
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="DESBLOQUEAR TABLET"
-        android:backgroundTint="#27AE60"
-        android:textColor="#FFFFFF"
+        android:text="INICIAR SESIÓN"
+        android:backgroundTint="@color/primary"
+        android:textColor="@color/white"
         android:textStyle="bold"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:elevation="4dp"/>
 
 </LinearLayout>

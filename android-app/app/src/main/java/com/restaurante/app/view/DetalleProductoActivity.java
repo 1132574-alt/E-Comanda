@@ -17,8 +17,6 @@ import com.restaurante.app.model.Producto;
 /**
  * PANTALLA DE DETALLE DEL PRODUCTO
  * Permite al cliente ver la información ampliada de un plato y personalizar su pedido.
- * 
- * Relación TFG:
  * - Implementa la funcionalidad de "Personalización de Pedido", permitiendo añadir comentarios (entidad LineaComanda).
  * - Refuerza la lógica de negocio de disponibilidad: si el producto no tiene stock, se inhabilita el botón de compra.
  * - Conecta la vista con el Carrito (Singleton) para persistir la selección antes del envío a Firebase.

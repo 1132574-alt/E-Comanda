@@ -5,20 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
+    android:background="@color/background_app"
     tools:context=".view.CategoriasActivity">
-
-    <ImageView
-        android:id="@+id/imgFondoCategorias"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/fondo_restaurante"
-        android:alpha="0.15"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtTituloCategorias"
@@ -28,8 +16,7 @@
         android:text="Nuestra Carta"
         android:textSize="34sp"
         android:textStyle="bold"
-        android:textColor="#333333"
-        android:fontFamily="serif"
+        android:textColor="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Seleccione una sección para comenzar"
-        android:textColor="#757575"
+        android:textColor="@color/secondary"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,9 +52,8 @@
             android:layout_margin="10dp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardElevation="6dp"
             app:strokeWidth="0dp">
 
             <LinearLayout
@@ -75,20 +61,20 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:background="@color/card_surface">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🥗"
-                    android:textSize="40sp" />
+                    android:textSize="44sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="ENTRANTES"
-                    android:textColor="#333333"
+                    android:textColor="@color/primary"
                     android:textStyle="bold"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -103,9 +89,8 @@
             android:layout_margin="10dp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardElevation="6dp"
             app:strokeWidth="0dp">
 
             <LinearLayout
@@ -113,20 +98,20 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:background="@color/card_surface">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🍝"
-                    android:textSize="40sp" />
+                    android:textSize="44sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="PRINCIPALES"
-                    android:textColor="#333333"
+                    android:textColor="@color/primary"
                     android:textStyle="bold"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -141,9 +126,8 @@
             android:layout_margin="10dp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardElevation="6dp"
             app:strokeWidth="0dp">
 
             <LinearLayout
@@ -151,20 +135,20 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:background="@color/card_surface">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🍷"
-                    android:textSize="40sp" />
+                    android:textSize="44sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="BEBIDAS"
-                    android:textColor="#333333"
+                    android:textColor="@color/primary"
                     android:textStyle="bold"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -179,9 +163,8 @@
             android:layout_margin="10dp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardElevation="6dp"
             app:strokeWidth="0dp">
 
             <LinearLayout
@@ -189,20 +172,20 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:background="@color/card_surface">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🍰"
-                    android:textSize="40sp" />
+                    android:textSize="44sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="POSTRES"
-                    android:textColor="#333333"
+                    android:textColor="@color/primary"
                     android:textStyle="bold"
                     android:textSize="14sp" />
             </LinearLayout>

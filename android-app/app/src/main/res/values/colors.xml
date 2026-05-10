@@ -2,4 +2,19 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Nueva Paleta TFG Restaurante - Tierra Cálida -->
+    <color name="eggshell">#F4F1DE</color>
+    <color name="burnt_peach">#E07A5F</color>
+    <color name="twilight_indigo">#3D405B</color>
+    <color name="muted_teal">#81B29A</color>
+    <color name="apricot_cream">#F2CC8F</color>
+
+    <!-- Roles de Color para el Proyecto -->
+    <color name="primary">@color/twilight_indigo</color>
+    <color name="secondary">@color/muted_teal</color>
+    <color name="accent">@color/burnt_peach</color>
+    <color name="background_app">@color/eggshell</color>
+    <color name="card_surface">@color/white</color>
+    <color name="highlight">@color/apricot_cream</color>
 </resources>

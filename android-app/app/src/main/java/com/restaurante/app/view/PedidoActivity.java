@@ -24,8 +24,6 @@ import java.util.Locale;
 /**
  * PANTALLA DE REVISIÓN Y ENVÍO DE PEDIDO (CARRITO)
  * Permite al cliente revisar los productos seleccionados antes de enviarlos definitivamente a cocina.
- * 
- * Relación TFG:
  * - Implementa el proceso de persistencia de la entidad Comanda en la base de datos (Firebase).
  * - Gestiona el cálculo económico tanto del pedido actual como del acumulado de la sesión.
  * - Asegura la trazabilidad asignando automáticamente IDs, Marcas de tiempo y vinculando el pedido 
@@ -57,7 +55,6 @@ public class PedidoActivity extends AppCompatActivity {
         LineaComandaAdapter adapter = new LineaComandaAdapter(comandaActual.getLineas());
         rv.setAdapter(adapter);
 
-        // Visualización de importes (Cálculos derivados de las entidades del MER)
         double totalEstePedido = carrito.getTotalCarrito();
         double cuentaTotalSesion = carrito.getCuentaTotalSesion();
 
@@ -79,7 +76,7 @@ public class PedidoActivity extends AppCompatActivity {
     /**
      * PERSISTENCIA EN FIREBASE
      * Registra la comanda en el nodo 'comandas'.
-     * Relación TFG: Establece el estado inicial 'SOLICITADO' y garantiza que el Carrito se limpie 
+     * Establece el estado inicial 'SOLICITADO' y garantiza que el Carrito se limpie
      * tras el éxito de la operación para evitar duplicidad de pedidos.
      */
     private void procesarEnvioComanda(Comanda comandaAEnviar) {
@@ -116,9 +113,6 @@ public class PedidoActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Formatea la fecha para cumplir con el estándar de trazabilidad del restaurante.
-     */
     private String obtenerFechaActual() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         return sdf.format(new Date());

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#F5F5F5">
+    android:background="@color/background_app">
 
     <TextView
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginBottom="16dp"
-        android:textColor="#333333"/>
+        android:textColor="@color/primary"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGestionStock"
