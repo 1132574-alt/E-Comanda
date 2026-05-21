@@ -2,8 +2,10 @@ package com.restaurante.app.view;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
+import android.view.View;
+import android.view.WindowManager;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.restaurante.app.R;
 import com.restaurante.app.adapter.CocinaAdapter;
 import com.restaurante.app.model.Comanda;
+import com.restaurante.app.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +27,6 @@ import java.util.List;
 /**
  * PANTALLA DE COCINA
  * Interfaz dedicada al personal de cocina para la gestión y preparación de pedidos.
- * - Implementa el rol de Cocinero dentro del ecosistema del restaurante.
- * - Permite el avance del ciclo de vida de la Comanda, cambiando su estado
- *   para informar al cliente sobre el progreso de su comida.
  */
 public class CocinaActivity extends AppCompatActivity {
 
@@ -35,15 +35,21 @@ public class CocinaActivity extends AppCompatActivity {
     private List<Comanda> listaComandas;
     private DatabaseReference mDatabase;
 
-    private static final String DB_URL = "https://e-comanda-aa795-default-rtdb.europe-west1.firebasedatabase.app";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cocina);
 
-        // Referenciamos el nodo de comandas en la base de datos NoSQL
-        mDatabase = FirebaseDatabase.getInstance(DB_URL).getReference("comandas");
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        aplicarModoInmersivo();
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        });
+
+        mDatabase = FirebaseDatabase.getInstance(Constants.DB_URL).getReference("comandas");
 
         rvCocina = findViewById(R.id.rvCocina);
         rvCocina.setLayoutManager(new LinearLayoutManager(this));
@@ -55,11 +61,24 @@ public class CocinaActivity extends AppCompatActivity {
         obtenerPedidosActivos();
     }
 
-    /**
-     * ESCUCHA ACTIVA DE PEDIDOS
-     * Aplica lógica de filtrado para mostrar únicamente los pedidos que requieren acción inmediata
-     * (SOLICITADO o EN PREPARACIÓN), ocultando los ya finalizados o cancelados para no saturar la vista.
-     */
+    private void aplicarModoInmersivo() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            aplicarModoInmersivo();
+        }
+    }
+
     private void obtenerPedidosActivos() {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -69,13 +88,11 @@ public class CocinaActivity extends AppCompatActivity {
                     Comanda c = data.getValue(Comanda.class);
                     if (c != null) {
                         String estado = c.getEstado();
-                        // Filtro de negocio: Solo pedidos pendientes de servir
                         if ("SOLICITADO".equals(estado) || "EN PREPARACIÓN".equals(estado)) {
                             listaComandas.add(c);
                         }
                     }
                 }
-                // Notificamos al adaptador para refrescar la lista en pantalla
                 adapter.notifyDataSetChanged();
             }
 

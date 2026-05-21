@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.restaurante.app.R;
 import com.restaurante.app.model.Carrito;
+import com.restaurante.app.utils.Constants;
 
 /**
  * PANTALLA PRINCIPAL (MODO CLIENTE/MESA)
@@ -29,20 +30,15 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
 
-    private static final String DB_URL = "https://e-comanda-aa795-default-rtdb.europe-west1.firebasedatabase.app";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDatabase = FirebaseDatabase.getInstance(DB_URL).getReference();
+        mDatabase = FirebaseDatabase.getInstance(Constants.DB_URL).getReference();
 
-        // Mantener pantalla encendida y aplicar modo inmersivo
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         aplicarModoInmersivo();
-
-        // Se bloquea el retroceso para mantener el dispositivo bloqueado en la app
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -50,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Validación de sesión activa
         if (Carrito.getInstance().getIdSesionActual() == null) {
             Toast.makeText(this, "Error: No hay sesión activa.", Toast.LENGTH_LONG).show();
             finish();
@@ -69,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // FUNCIONALIDADES DE SERVICIO EN TIEMPO REAL
-        // Al activar estos flags, la SesionMesa cambia de estado y el Camarero recibe el aviso al instante.
         btnLlamarCamarero.setOnClickListener(v -> 
             confirmarAccion("Llamar al camarero", "¿Deseas llamar al camarero?", "pedidoCamarero"));
             
@@ -78,9 +71,6 @@ public class MainActivity extends AppCompatActivity {
             confirmarAccion("Pedir la cuenta", "¿Deseas solicitar la cuenta?", "pedidoCuenta"));
     }
 
-    /**
-     * Oculta la barra de navegación y estado para una experiencia de pantalla completa.
-     */
     private void aplicarModoInmersivo() {
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -113,10 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    /**
-     * ACTUALIZACIÓN DE ESTADO EN FIREBASE
-     * Activa los flags de aviso dentro de la SesionMesa actual.
-     */
     private void enviarNotificacionAFirebase(String campo) {
         String idSesion = Carrito.getInstance().getIdSesionActual();
         if (idSesion != null) {

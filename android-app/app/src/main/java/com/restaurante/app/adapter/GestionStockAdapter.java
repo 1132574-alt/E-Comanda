@@ -3,13 +3,13 @@ package com.restaurante.app.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.database.DatabaseReference;
 import com.restaurante.app.R;
 import com.restaurante.app.model.Producto;
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * ADAPTER PARA LA GESTIÓN DE STOCK
  * Permite al personal de cocina habilitar o deshabilitar productos.
- * - Interactúa directamente con el campo 'disponible' de la entidad Producto.
+ * Interactúa directamente con el campo 'disponible' de la entidad Producto.
  */
 public class GestionStockAdapter extends RecyclerView.Adapter<GestionStockAdapter.StockViewHolder> {
 
@@ -46,7 +46,7 @@ public class GestionStockAdapter extends RecyclerView.Adapter<GestionStockAdapte
         holder.txtCategoria.setText(producto.getCategoria());
         
         // Configuramos el switch según el estado actual en la BD
-        holder.swDisponible.setOnCheckedChangeListener(null); // Evitamos disparos accidentales al reciclar
+        holder.swDisponible.setOnCheckedChangeListener(null);
         holder.swDisponible.setChecked(producto.isDisponible());
 
         holder.swDisponible.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -66,7 +66,7 @@ public class GestionStockAdapter extends RecyclerView.Adapter<GestionStockAdapte
 
     static class StockViewHolder extends RecyclerView.ViewHolder {
         TextView txtNombre, txtCategoria;
-        Switch swDisponible;
+        SwitchMaterial swDisponible;
 
         public StockViewHolder(@NonNull View itemView) {
             super(itemView);

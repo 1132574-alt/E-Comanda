@@ -11,9 +11,9 @@ public class LineaComanda implements Serializable {
 
     private int idLinea;
     private int cantidad;
-    private double precioVenta; // Guardamos el precio en el momento del pedido
+    private double precioVenta;
     private String comentario;
-    private Producto producto; // Relación con el objeto Producto
+    private Producto producto;
 
 
     public LineaComanda() {

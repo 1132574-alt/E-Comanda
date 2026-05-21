@@ -2,7 +2,10 @@ package com.restaurante.app.view;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.restaurante.app.R;
 import com.restaurante.app.adapter.CamareroAdapter;
 import com.restaurante.app.model.SesionMesa;
+import com.restaurante.app.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +27,6 @@ import java.util.List;
 /**
  * ACTIVIDAD PRINCIPAL PARA CAMAREROS
  * Monitoriza en tiempo real las peticiones de las mesas activas.
- * - Se aplica un filtro doble: Solo se muestran mesas cuya sesión esté "ACTIVA" 
- *   Y que tengan algún aviso pendiente (pedidoCamarero o pedidoCuenta).
- * - Esto garantiza que una vez que el camarero cierra la mesa, esta desaparezca 
- *   automáticamente del panel de control.
  */
 public class CamareroActivity extends AppCompatActivity {
 
@@ -35,14 +35,21 @@ public class CamareroActivity extends AppCompatActivity {
     private List<SesionMesa> listaSesiones;
     private DatabaseReference mDatabase;
 
-    private static final String DB_URL = "https://e-comanda-aa795-default-rtdb.europe-west1.firebasedatabase.app";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camarero);
 
-        mDatabase = FirebaseDatabase.getInstance(DB_URL).getReference("sesiones_mesa");
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        aplicarModoInmersivo();
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        });
+
+        mDatabase = FirebaseDatabase.getInstance(Constants.DB_URL).getReference("sesiones_mesa");
 
         rvAvisos = findViewById(R.id.rvAvisosCamarero);
         rvAvisos.setLayoutManager(new LinearLayoutManager(this));
@@ -54,6 +61,24 @@ public class CamareroActivity extends AppCompatActivity {
         escucharAvisos();
     }
 
+    private void aplicarModoInmersivo() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            aplicarModoInmersivo();
+        }
+    }
+
     private void escucharAvisos() {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -62,7 +87,6 @@ public class CamareroActivity extends AppCompatActivity {
                 for (DataSnapshot data : snapshot.getChildren()) {
                     SesionMesa sesion = data.getValue(SesionMesa.class);
                     if (sesion != null) {
-                        // FILTRO CRÍTICO: Solo mesas ACTIVAS con avisos pendientes
                         boolean esActiva = "ACTIVA".equals(sesion.getEstadoSesion());
                         boolean tieneAvisos = sesion.isPedidoCamarero() || sesion.isPedidoCuenta();
                         

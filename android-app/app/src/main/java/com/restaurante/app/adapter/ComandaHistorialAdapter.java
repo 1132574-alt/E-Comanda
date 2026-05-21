@@ -18,8 +18,8 @@ import java.util.List;
 /**
  * ADAPTER PARA EL HISTORIAL DE PEDIDOS
  * Gestiona la lista de pedidos que el cliente ha realizado durante su estancia.
- * - Refleja los cambios de estado que realiza el cocinero (SOLICITADO -> EN PREPARACIÓN -> LISTO).
- * - Controla la regla de negocio de cancelación: un cliente solo puede cancelar un pedido si aún está en estado 'SOLICITADO'.
+ * Refleja los cambios de estado que realiza el cocinero (SOLICITADO -> EN PREPARACIÓN -> LISTO).
+ * Controla la regla de negocio de cancelación: un cliente solo puede cancelar un pedido si aún está en estado 'SOLICITADO'.
  */
 public class ComandaHistorialAdapter extends RecyclerView.Adapter<ComandaHistorialAdapter.ViewHolder> {
 

@@ -20,8 +20,8 @@ import java.util.List;
 /**
  * ADAPTER PARA LA VISTA DE CAMARERO
  * Gestiona la visualización de las mesas que han solicitado atención y el cierre de las mismas.
- * - Atender Avisos: Resetea los flags temporales de comunicación (pedidoCamarero/pedidoCuenta).
- * - Finalizar Mesa: Implementa el cierre definitivo de la entidad SesionMesa, marcando el estado 
+ * Atender Avisos: Resetea los flags temporales de comunicación (pedidoCamarero/pedidoCuenta).
+ * Finalizar Mesa: Implementa el cierre definitivo de la entidad SesionMesa, marcando el estado
  *   como 'FINALIZADA' y registrando la fecha de fin, lo que libera la mesa física para el siguiente uso.
  */
 public class CamareroAdapter extends RecyclerView.Adapter<CamareroAdapter.CamareroViewHolder> {
@@ -47,7 +47,7 @@ public class CamareroAdapter extends RecyclerView.Adapter<CamareroAdapter.Camare
 
         holder.txtMesa.setText("MESA: " + sesion.getIdMesa());
 
-        // LÓGICA DE AVISOS (TFG: Comunicación síncrona)
+        // LÓGICA DE AVISOS
         StringBuilder aviso = new StringBuilder();
         if (sesion.isPedidoCamarero()) aviso.append("LLAMADA AL CAMARERO ");
         if (sesion.isPedidoCuenta()) aviso.append(aviso.length() > 0 ? "+ CUENTA" : "PIDE LA CUENTA");

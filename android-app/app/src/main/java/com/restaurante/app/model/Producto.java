@@ -14,6 +14,7 @@ public class Producto implements Serializable {
     private double precio;
     private String categoria; 
     private boolean disponible; 
+    private String precioFormateado;
 
     public Producto() {
     }
@@ -45,8 +46,12 @@ public class Producto implements Serializable {
     public boolean isDisponible() { return disponible; }
     public void setDisponible(boolean disponible) { this.disponible = disponible; }
 
-
     public String getPrecioFormateado() {
+        if (precioFormateado != null) return precioFormateado;
         return String.format("%.2f€", precio);
+    }
+    
+    public void setPrecioFormateado(String precioFormateado) {
+        this.precioFormateado = precioFormateado;
     }
 }

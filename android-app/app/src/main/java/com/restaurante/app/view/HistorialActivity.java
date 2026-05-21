@@ -2,8 +2,11 @@ package com.restaurante.app.view;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +22,7 @@ import com.restaurante.app.R;
 import com.restaurante.app.adapter.ComandaHistorialAdapter;
 import com.restaurante.app.model.Carrito;
 import com.restaurante.app.model.Comanda;
+import com.restaurante.app.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,14 +41,21 @@ public class HistorialActivity extends AppCompatActivity {
     private List<Comanda> listaComandas;
     private DatabaseReference mDatabase;
 
-    private static final String DB_URL = "https://e-comanda-aa795-default-rtdb.europe-west1.firebasedatabase.app";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
 
-        mDatabase = FirebaseDatabase.getInstance(DB_URL).getReference().child("comandas");
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        aplicarModoInmersivo();
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        });
+
+        mDatabase = FirebaseDatabase.getInstance(Constants.DB_URL).getReference().child("comandas");
         listaComandas = new ArrayList<>();
 
         rv = findViewById(R.id.rvHistorial);
@@ -54,6 +65,24 @@ public class HistorialActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
 
         escucharPedidosEnTiempoReal();
+    }
+
+    private void aplicarModoInmersivo() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            aplicarModoInmersivo();
+        }
     }
 
     /**

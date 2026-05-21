@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * ADAPTER PARA LÍNEAS DE COMANDA (CARRITO)
  * Muestra los productos seleccionados antes de enviar el pedido definitivo.
- * - Visualiza la composición de una Comanda en formación.
- * - Muestra detalles específicos como la cantidad solicitada y comentarios de personalización del cliente, 
+ * Visualiza la composición de una Comanda en formación.
+ * Muestra detalles específicos como la cantidad solicitada y comentarios de personalización del cliente,
  *   asegurando que la comunicación entre el cliente y la cocina sea precisa.
  */
 public class LineaComandaAdapter extends RecyclerView.Adapter<LineaComandaAdapter.LineaViewHolder> {
